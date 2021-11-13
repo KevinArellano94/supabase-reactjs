@@ -4,8 +4,8 @@ import { supabase } from './client';
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [post, setPost] = useState({ title: "", content: "", user_uid: ""});
-  const { title, content, user_uid } = post;
+  const [post, setPost] = useState({ title: "", content: "" });
+  const { title, content } = post;
   useEffect(() => {
     fetchPosts();
   })
@@ -20,10 +20,10 @@ function App() {
     await supabase
       .from('posts')
       .insert([
-        { title, content, user_uid }
+        { title, content }
       ])
       .single()
-    setPost({ title: "", content: "", user_uid })
+    setPost({ title: "", content: ""})
     fetchPosts()
   }
   
@@ -39,18 +39,15 @@ function App() {
         value={ content }
         onChange={ e => setPost({ ...post, content: e.target.value }) }
       />
-      <input
-        placeholder="User_UID"
-        value={ user_uid }
-        onChange={ e => setPost({ ...post, user_uid: e.target.value }) }
-      />
       <button onClick={ createPost }>Create Post</button>
       {
         posts.map(post => (
           <div key={ post.id }>
-            <h3>{ post.title }</h3>
-            <p>{ post.content }</p>
             <p>{ post.user_uid }</p>
+            <p>{ post.created_at }</p>
+            <p>{ post.title }</p>
+            <p>{ post.content }</p>
+            <h1>--------------------</h1>
           </div>
         ))
       }
