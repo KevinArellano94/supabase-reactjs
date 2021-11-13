@@ -6,3 +6,10 @@ export const supabase = createClient(
     // Sanitize tables
     // https://supabase.io/docs/learn/auth-deep-dive/auth-row-level-security
 )
+
+
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
